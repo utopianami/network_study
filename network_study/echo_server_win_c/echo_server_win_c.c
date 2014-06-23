@@ -1,9 +1,10 @@
-#pragma comment(lib, "ws2_32.lib")
+﻿#pragma comment(lib, "ws2_32.lib")
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <winsock2.h>
-
+//argv 값 넘기기
+//프로젝트 우클릭 – 속성 – 구성 속성 – 디버깅 – 명령 인수에 값을 적으면 됨
 
 #define BUF_SIZE 1024
 void ErrorHandling( char *message );
@@ -18,9 +19,10 @@ int main( int argc, char *argv[] )
 
 	SOCKADDR_IN servAdr, clntAdr;
 	int clntAdrSize;
-
+	
 	if(argc!=2){
 		printf("Usage : %s <port>\n",argv[0]);
+		//	printf("Usage : %s <port>\n",argv[0]);
 		exit(1);
 	}
 
