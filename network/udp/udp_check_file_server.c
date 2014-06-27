@@ -131,7 +131,7 @@ int main(int argc, char *argv[]){
 				{
 					alarm(TIMEOUT_SECS); //타이머 값 설정
 					recv_str_len = recvfrom(serv_sd, buf, BUF_SIZE,0,(struct sockaddr*)&clnt_adr,&clnt_adr_sz);
-					if( errno == EINTR )
+					if( errno == EINTR && recv_str_len == -1)
 					{
 						flag = 1;
 						alarm(0); //타이머 값 설정
@@ -204,7 +204,7 @@ int main(int argc, char *argv[]){
 			{
 				alarm(TIMEOUT_SECS); //타이머 값 설정
 				recv_str_len = recvfrom(serv_sd, buf, BUF_SIZE,0,(struct sockaddr*)&clnt_adr,&clnt_adr_sz);
-				if ( errno == EINTR )
+				if ( errno == EINTR && recv_str_len == -1)
 				{
 					flag = 1;
 					alarm(0); //타이머 값 설정

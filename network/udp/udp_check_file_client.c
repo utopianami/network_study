@@ -96,7 +96,7 @@ int main(int argc, char *argv[]){
 			adr_sz = sizeof(from_adr);
 			alarm(TIMEOUT_SECS); //타이머 값 설정
 			read_cnt = recvfrom(sd,buf,BUF_SIZE,0,(struct sockaddr*)&from_adr,&adr_sz);
-			if( errno == EINTR )
+			if( errno == EINTR && read_cnt == -1)
 			{
 				while(1)
 				{
@@ -130,7 +130,7 @@ int main(int argc, char *argv[]){
 				printf("Buf 내용물 출력 \n");
 				for( int i=0; i<BUF_SIZE; ++i )
 				{
-					printf("%02x",buf[i]);
+					//printf("%02x",buf[i]);
 				}
 				printf("\n\n");
 				break;	
