@@ -77,7 +77,15 @@ int main(int argc, char *argv[]){
 			}
 			else
 			{
+				//memset(chk_recv,0,sizeof(chk_recv));
 				strcpy(chk_recv, buf);
+				//buf 출력
+				printf("Buf 내용물 출력 \n");
+				for( int i=0; i<BUF_SIZE; ++i )
+				{
+					printf("%02x",buf[i]);
+				}
+				printf("\n\n");
 				break;	
 			}
 		}
@@ -120,12 +128,12 @@ int main(int argc, char *argv[]){
 		//순서도 맞고, 패킷도 잘 왔으면 파일에 써라
 		fwrite((void*)data,1,read_cnt-HEADER_SIZE,fp);
 	
-		client_seq = server_seq + read_cnt - HEADER_SIZE;//여기까지 받았고.
+		client_seq = server_seq + read_cnt - HEADER_SIZE - 1;//여기까지 받았고.
 	
 		printf("client에서 %d~%d 까지 받음\n", server_seq, client_seq);//여기까지 받았고
 		for( int i=0; i<BUF_SIZE; ++i )
 		{
-			printf("%02x",chk_recv[i]);
+			//printf("%02x",chk_recv[i]);
 		}
 		printf("\n\n\n");
 		++client_seq; // 다음 받을 데이터 시퀀스

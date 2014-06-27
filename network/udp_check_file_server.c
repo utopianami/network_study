@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 
-
 #define BUF_SIZE 1024
 #define HEADER_SIZE 16
 #define DATA_SIZE 1008
@@ -130,8 +129,17 @@ int main(int argc, char *argv[]){
 		
 		for( int i=HEADER_SIZE; i<HEADER_SIZE+DATA_SIZE; ++i )
 		{
-			buf[i] = temp[i-HEADER_SIZE];
+			buf[ i ] = temp[ i-HEADER_SIZE ];
 		}
+		
+		/*
+		printf(" BUF 내용물 출력 \n");
+		for( int i=0; i<BUF_SIZE; ++i )
+		{
+			printf("%02x",buf[i]);
+		}
+		printf("\n");
+		*/
 		
 		while(1)
 		{
@@ -145,6 +153,8 @@ int main(int argc, char *argv[]){
 				}
 				else 
 				{
+					//memset(chk_send,0,sizeof(chk_send));
+					printf("client로 패킷 전송 잘했음\n");
 					strcpy(chk_send, buf);
 					break;
 				}
@@ -160,6 +170,7 @@ int main(int argc, char *argv[]){
 				}
 				else
 				{
+					printf("client로부터 seq잘 받음\n");
 					strcpy(chk_recv, buf);
 					break;
 				}
@@ -167,15 +178,16 @@ int main(int argc, char *argv[]){
 			
 			if( !strcmp(buf,"resend") )
 			{
+				printf(" resend 해주세요 from server \n");
 				continue;
 			}
 			else //잘 받았으면
 			{	
 				client_seq = atoi(buf);
-				printf(" %d에서부터 %d까지 패킷을 전송 \n",server_seq, client_seq -1 );
+				printf("%d 에서부터 %d까지 패킷을 전송 \n",server_seq, client_seq -1 );
 				for( int i=0; i<BUF_SIZE; ++i )
 				{
-					printf("%02x",chk_send[i]);
+				//	printf("%02x",chk_send[i]);
 				}
 				printf("\n\n\n");
 				server_seq = client_seq;
