@@ -94,6 +94,7 @@ int main(int argc, char *argv[]){
 			memset(buf, 0, sizeof(buf));
 			
 			adr_sz = sizeof(from_adr);
+			alarm(TIMEOUT_SECS); //타이머 값 설정
 			read_cnt = recvfrom(sd,buf,BUF_SIZE,0,(struct sockaddr*)&from_adr,&adr_sz);
 			if( errno == EINTR )
 			{
@@ -108,6 +109,7 @@ int main(int argc, char *argv[]){
 					else
 					{
 						printf("ack 를 보냈음.(client->server)");
+						alarm(0); //타이머 값 설정
 						break;
 					}
 				}
